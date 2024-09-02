@@ -53,6 +53,7 @@
                     <td>Description</td>
                     <td>Status</td>
                     <td>Stock</td>
+                    <td>Donate</td>
                     <td>Action</td>
                 </tr>
                 </thead>
@@ -84,10 +85,20 @@
                         </td>
                         <td>{{$item->stock}}</td>
                         <td>
-                            <div class="flex gap-2">
+                            <div class="flex items-center gap-2">
                                 <button>
-                                    <i class='bx bx-sm bx-pencil'></i>
+                                    <i class='bx bx-sm bx-plus-circle'></i>
                                 </button>
+                                <button>
+                                    <i class='bx bx-sm bx-minus-circle'></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex gap-2">
+                                <a type="button" href="/item/edit/{{$item->id}}">
+                                    <i class='bx bx-sm bx-pencil'></i>
+                                </a>
                                 <form method="POST" action="/item/{{$item->id}}">
                                     @csrf
                                     @method('DELETE')

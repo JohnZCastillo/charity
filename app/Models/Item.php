@@ -24,6 +24,10 @@ class Item extends Model
         'deleted' => 'boolean'
     ];
 
+    protected $hidden = [
+        'deleted',
+    ];
+
     public function attachment(): HasOne
     {
         return $this->hasOne(ItemAttachment::class);

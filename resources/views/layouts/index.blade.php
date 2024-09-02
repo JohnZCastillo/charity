@@ -33,7 +33,7 @@
 
 <div class="bg-gray-200 h-screen">
 
-    <div class="h-[10%] navbar bg-base-100 shadow-md">
+    <div class="h-[10%] bg-white navbar shadow-md">
         <div class="navbar-start">
             <a class="btn btn-ghost text-xl">Inventory System</a>
         </div>
