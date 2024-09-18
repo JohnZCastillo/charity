@@ -120,7 +120,7 @@
         });
 
         window.addEventListener('load',()=>{
-            quill.clipboard.dangerouslyPasteHTML('{!! $announcement->content !!}')
+            quill.clipboard.dangerouslyPasteHTML(`{!! $announcement->content !!}`)
         })
 
     </script>
