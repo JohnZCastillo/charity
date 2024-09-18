@@ -1,10 +1,5 @@
 @extends('layouts.index')
 
-@section('files')
-    <link href="/light-box/css/lightbox.css" rel="stylesheet"/>
-    <script src="/light-box/js/lightbox-plus-jquery.js"></script>
-@endsection
-
 @section('body')
 
     <div class="p-2">
@@ -15,90 +10,97 @@
         <div class="mt-2 grid grid-rows-1  grid-cols-12 gap-2">
 
             <form id="searchForm" class="col-span-10">
-                <input id="searchInput" value="{{$app->request->search}}" placeholder="Search" type="search"
-                       name="search"
-                       class="w-full input input-bordered">
 
-                <div class="flex gap-2 py-2">
-                    <div>
-                        <label>Order By</label>
-                        <select class="select select-bordered" id="orderBy" name="order">
-                            <option @selected($app->request->order == 'code') value="code">Code</option>
-                            <option @selected($app->request->order == 'name') value="name">Name</option>
-                            <option @selected($app->request->order == 'stock') value="stock">Stock</option>
-                        </select>
+
+                <div class="row mx-0">
+
+                    <div class="col-12 col-md-10">
+                        <input id="searchInput" value="{{$app->request->search}}"
+                               placeholder="Search"
+                               type="search"
+                               name="search"
+                               class="form-control">
+
                     </div>
 
-                    <div>
-                        <label>Sort by</label>
-                        <select class="select select-bordered" id="sortBy" name="sort">
-                            <option @selected($app->request->sort == 'asc') value="asc">Ascending</option>
-                            <option @selected($app->request->sort == 'desc') value="desc">Descending</option>
-                        </select>
+                    <a type="button" href="/create-announcement" class="mt-2 mt-md-0 col-12 col-md-2 btn btn-secondary">New Announcement</a>
+                </div>
+
+                <div class="row mx-0 mt-2">
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="text-nowrap">Order By</label>
+                            <select class="form-select" id="orderBy" name="order">
+                                <option @selected($app->request->order == 'title') value="title">Title</option>
+                                <option @selected($app->request->order == 'created') value="created">Created At</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="text-nowrap">Sort by</label>
+                            <select class="form-select" id="sortBy" name="sort">
+                                <option @selected($app->request->sort == 'asc') value="asc">Ascending</option>
+                                <option @selected($app->request->sort == 'desc') value="desc">Descending</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </form>
-
-            <a href="/create-announcement" class="col-span-2 btn bg-slate-400">New Announcement</a>
-
         </div>
 
         <div class="mt-3 p-2 shadow rounded bg-white">
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <td>Title</td>
-                    <td>Created By</td>
-                    <td>Date</td>
-                    <td>Status</td>
-                    <td>Action</td>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Created By</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                @foreach($announcements as $announcement)
-                    {!! $announcement->content !!}
-                @endforeach
+                    @foreach($announcements as $announcement)
+                        <tr>
+                            <td class="text-capitalize">{{$announcement->title}}</td>
+                            <td class="text-capitalize">
+                                @if($announcement->user)
+                                    {{$announcement->user->name}}
+                                @endif
+                            </td>
+                            <td class="text-capitalize">{{$announcement->created_at->format('Y-m-d')}}</td>
+                            <td class="text-capitalize">
+                                <div class="d-flex gap-2 items-center">
 
-{{--                @foreach($donors as $donor)--}}
-{{--                    <tr>--}}
-{{--                        <td>{{$donor->code}}</td>--}}
-{{--                        <td>{{$donor->name}}</td>--}}
-{{--                        <td>{{$donor->mobile}}</td>--}}
-{{--                        <td>{{$donor->email}}</td>--}}
-{{--                        <td>{{$donor->address->address}}</td>--}}
-{{--                        <td>--}}
-{{--                            @if($donor->status == 'enabled')--}}
-{{--                                <div class="badge badge-success">{{$donor->status}}</div>--}}
-{{--                            @else--}}
-{{--                                <div class="badge disabled">{{$donor->status}}</div>--}}
-{{--                            @endif--}}
-{{--                        </td>--}}
-{{--                        <td>--}}
-{{--                            <div class="flex gap-2">--}}
-{{--                                <a type="button" href="/item/edit/{{$donor->id}}">--}}
-{{--                                    <i class='bx bx-sm bx-pencil'></i>--}}
-{{--                                </a>--}}
-{{--                                <form method="POST" action="/item/{{$donor->id}}">--}}
-{{--                                    @csrf--}}
-{{--                                    @method('DELETE')--}}
-{{--                                    <button type="submit">--}}
-{{--                                        <i class='bx bx-sm bx-trash text-rose-500'></i>--}}
-{{--                                    </button>--}}
-{{--                                </form>--}}
-{{--                            </div>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
-                </tbody>
-            </table>
+                                    <a href="/inventory/announcement/{{$announcement->id}}" type="button"
+                                       class="btn btn-primary">Edit</a>
+
+                                    <form data-confirmation="Are you sure you want to delete this announcement?"
+                                          class="confirmation" method="POST"
+                                          action="/inventory/announcement/{{$announcement->id}}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+
             <div class="py-2">
-{{--                {{ $donors->links() }}--}}
+                {{$announcements->links()}}
             </div>
         </div>
     </div>
-
 
 @endsection
 

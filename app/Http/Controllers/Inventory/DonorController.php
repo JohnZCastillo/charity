@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Inventory;
 
 use App\Enums\UserStatus;
 use App\Enums\UserType;
+use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Address;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class DonorController extends Controller
 
         $donors = $query->paginate();
 
-        return view('donors', [
+        return view('inventory.donors', [
             'donors' => $donors,
         ]);
     }
@@ -75,4 +76,57 @@ class DonorController extends Controller
             return redirect()->back()->withErrors(['message' => 'Unable to create donor account']);
         }
     }
+
+    public function getDonor($donorID)
+    {
+        $donor = Account::findOrFail($donorID);
+
+        return view('inventory.edit-donor', [
+            'donor' => $donor
+        ]);
+    }
+
+    public function updateDonor(Request $request, $donorID)
+    {
+        try {
+            DB::beginTransaction();
+
+            $validated = $request->validate([
+                'code' => [
+                    'required',
+                    Rule::unique('accounts')->ignore($donorID),
+                ],
+                'name' => 'required|string',
+                'mobile' => 'required|string',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('accounts')->ignore($donorID),
+                ],
+                'status' => [Rule::enum(UserStatus::class)],
+                'address' => 'required|string',
+            ],[
+                'code.unique' => 'Code is already taken',
+                'email.unique' => 'Email is already taken',
+            ]);
+
+            Address::where('account_id', $donorID)
+                ->update([
+                    'address' => $validated['address'],
+                ]);
+
+            $account = Account::findOrFail($donorID);
+
+            $account->fill($validated);
+            $account->save();
+
+            DB::commit();
+
+            return redirect()->back()->with(['message' => 'updated!']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
+        }
+    }
+
 }

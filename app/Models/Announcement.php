@@ -17,13 +17,12 @@ class Announcement extends Model
         'user_id',
     ];
 
+    protected $casts = [
+        'archived' => 'boolean'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function attachments(): HasMany
-    {
-        return $this->hasMany(AnnouncementAttachment::class);
     }
 }

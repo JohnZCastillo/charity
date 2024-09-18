@@ -13,7 +13,7 @@ class AnnouncementController extends Controller
 
     public function index()
     {
-        $announcements = Announcement::get();
+        $announcements = Announcement::paginate(10);
 
         return view('announcements', [
             'announcements' => $announcements
@@ -21,10 +21,58 @@ class AnnouncementController extends Controller
 
     }
 
+
     public function createAnnouncement()
     {
         return view('announcement-maker');
     }
+
+    public function viewAnnouncement($announcementID)
+    {
+
+        $announcement = Announcement::findOrFail($announcementID);
+
+        return view('announcement-edit', [
+            'announcement' => $announcement
+        ]);
+    }
+
+    public function updateAnnouncement(Request $request, $announcementID)
+    {
+
+        try {
+            DB::beginTransaction();
+            $validated = $request->validate([
+                'title' => 'required',
+                'content' => 'required'
+            ]);
+
+            Announcement::findOrFail($announcementID)
+                ->update($validated);
+
+            DB::commit();
+
+            return redirect()->back()->with(['message' => 'Update Success']);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
+        }
+    }
+
+    public function deleteAnnouncement($announcementID)
+    {
+        try {
+            DB::beginTransaction();
+            Announcement::findOrFail($announcementID)->delete();
+            DB::commit();
+            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['message' => $e->getMessage()]);
+        }
+    }
+
 
     public function newAnnouncement(Request $request)
     {
@@ -37,17 +85,11 @@ class AnnouncementController extends Controller
                 'content' => 'required|string',
             ]);
 
-            $announcement = Announcement::create([
+            Announcement::create([
                 'title' => $validated['title'],
                 'content' => $validated['content'],
                 'user_id' => 1,
             ]);
-
-            AnnouncementAttachment::whereNull('announcement_id')
-                ->where('session_id', session_id())
-                ->update([
-                    'announcement_id' => $announcement->id
-                ]);
 
             DB::commit();
 

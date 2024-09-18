@@ -27,7 +27,6 @@ class Account extends Model
         'status' => UserStatus::class
     ];
 
-
     public function address(): HasOne
     {
         return $this->hasOne(Address::class);

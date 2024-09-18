@@ -39,7 +39,7 @@ class ItemController extends Controller
             $qb->orderBy($request->input('order'), $request->input('sort'));
         });
 
-        return view('items', [
+        return view('inventory.items', [
             'items' => $query->paginate(20)
         ]);
     }
@@ -104,7 +104,7 @@ class ItemController extends Controller
 
             $item = Item::with(['attachment'])->find($itemID);
 
-            return view('edit-item', [
+            return view('inventory.edit-item', [
                 'item' => $item
             ]);
 

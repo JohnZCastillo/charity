@@ -8,13 +8,14 @@
 
 @section('body')
 
-    <div class="p-2 bg-light h-100">
+    <div class="p-2">
         @if($errors->any())
             <h4>{{$errors->first()}}</h4>
         @endif
 
-        <form method="POST" action="/announcement" id="announcementForm">
+        <form method="POST" action="/inventory/announcement/{{$announcement->id}}" id="announcementForm">
 
+            @method('PATCH')
             @csrf
 
             <div class="mb-2">
@@ -106,7 +107,6 @@
 
                     const range = quill.getSelection();
                     quill.insertEmbed(range.index, "image", data.file);
-
                 } catch (error) {
                     console.log(error.message)
                 }
@@ -115,9 +115,13 @@
 
         announcementForm.addEventListener("submit", (event) => {
             event.preventDefault();
-            document.querySelector('#content').innerHTML = quill.getSemanticHTML();
+            document.querySelector('#content').innerHTML = document.querySelector(".ql-editor").innerHTML;
             announcementForm.submit();
         });
+
+        window.addEventListener('load',()=>{
+            quill.clipboard.dangerouslyPasteHTML('{!! $announcement->content !!}')
+        })
 
     </script>
 @endsection

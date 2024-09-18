@@ -5,47 +5,9 @@
 @endsection
 
 @section('body')
-    <main class="content">
-        <div class="container-fluid p-0">
-            <div class="grid grid-cols-5 gap-2 px-2 mt-2 h-28">
-                <div class="bg-white rounded shadow p-2 h-full">
-                    <p class="text-gray-800">Donors</p>
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-5xl text-indigo-800 font-bold">100</h2>
-                        <i class="bx bx-lg bx-sm bx-user-check text-indigo-800 "></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded shadow p-2 h-full">
-                    <p class="text-gray-800">Recipients</p>
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-5xl text-indigo-800 font-bold">100</h2>
-                        <i class="bx bx-lg bx-sm bx-user-check text-indigo-800 "></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded shadow p-2 h-full">
-                    <p class="text-gray-800">Items</p>
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-5xl text-indigo-800 font-bold">100</h2>
-                        <i class="bx bx-lg bx-sm bx-user-check text-indigo-800 "></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded shadow p-2 h-full">
-                    <p class="text-gray-800">Announcements</p>
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-5xl text-indigo-800 font-bold">100</h2>
-                        <i class="bx bx-lg bx-sm bx-user-check text-indigo-800 "></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded shadow p-2 h-full">
-                    <p class="text-gray-800">Events</p>
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-5xl text-indigo-800 font-bold">100</h2>
-                        <i class="bx bx-lg bx-sm bx-user-check text-indigo-800 "></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+   <div class="h-100 bg-light">
+
+   </div>
 @endsection
 
 @section('scripts')
