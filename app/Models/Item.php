@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ItemStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -14,14 +15,14 @@ class Item extends Model
         'name',
         'code',
         'description',
-        'quantity',
         'status',
         'stock',
         'deleted'
     ];
 
     protected $casts = [
-        'deleted' => 'boolean'
+        'deleted' => 'boolean',
+        'status' => ItemStatus::class
     ];
 
     protected $hidden = [

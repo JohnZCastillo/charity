@@ -25,91 +25,23 @@
         .pill-disabled {
             background-color: var(--bs-secondary);
         }
-
-        .container .searchInput {
-            background: #fff;
-            width: 100%;
-            border-radius: 5px;
-            position: relative;
-            box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
-        }
-
-        .searchInput input {
-            height: 55px;
-            width: 100%;
-            outline: none;
-            border: none;
-            border-radius: 5px;
-            padding: 0 60px 0 20px;
-            font-size: 18px;
-            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .searchInput.active input {
-            border-radius: 5px 5px 0 0;
-        }
-
-        .searchInput .resultBox {
-            padding: 0;
-            opacity: 0;
-            pointer-events: none;
-            max-height: 280px;
-            overflow-y: auto;
-        }
-
-        .searchInput.active .resultBox {
-            padding: 10px 8px;
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .resultBox li {
-            list-style: none;
-            padding: 8px 12px;
-            display: none;
-            width: 100%;
-            cursor: default;
-            border-radius: 3px;
-        }
-
-        .searchInput.active .resultBox li {
-            display: block;
-        }
-
-        .resultBox li:hover {
-            background: #efefef;
-        }
-
-        .searchInput .icon {
-            position: absolute;
-            right: 0px;
-            top: 0px;
-            height: 55px;
-            width: 55px;
-            text-align: center;
-            line-height: 55px;
-            font-size: 20px;
-            color: #644bff;
-            cursor: pointer;
-        }
-
-        #resultBox:empty {
-            display: none;
-        }
-
     </style>
 @endsection
 
 @section('body')
 
+
     <div class="p-2 bg-light h-100">
 
         @if($errors->any())
-            <h4>{{$errors->first()}}</h4>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                 {{$errors->first()}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endif
 
-        <form id="searchForm">
 
+        <form id="searchForm">
             <div class="row mx-0">
 
                 <div class="col-12 d-flex align-items-center gap-2 mb-2">
@@ -123,7 +55,7 @@
 
                 </div>
 
-                <div class="col-3 d-flex align-items-center gap-2">
+                <div class="col-6 col-md-3 d-flex align-items-center gap-2">
                     <label class="text-nowrap">Order By</label>
                     <select class="form-select" id="orderBy" name="order">
                         <option @selected($app->request->order == 'code') value="code">Code</option>
@@ -132,15 +64,26 @@
                     </select>
                 </div>
 
-                <div class="col-3 d-flex align-items-center gap-2">
+                <div class="col-6 col-md-3 d-flex align-items-center gap-2">
                     <label class="text-nowrap">Sort by</label>
                     <select class="form-select" id="sortBy" name="sort">
                         <option @selected($app->request->sort == 'asc') value="asc">Ascending</option>
                         <option @selected($app->request->sort == 'desc') value="desc">Descending</option>
                     </select>
                 </div>
+
+
+                <div class="col-6 col-md-3 mt-2 mt-md-0 d-flex align-items-center gap-2">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning">
+                        Donate
+                    </button>
+                </div>
+
             </div>
         </form>
+
+        <!-- Modal -->
+        <x-donation />
 
         <div class="mt-3 p-2 shadow rounded bg-white">
 
@@ -209,17 +152,6 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="searchInput">
-            <input type="text" placeholder="Saisir une adresse..">
-            <div class="resultBox">
-                <!-- here list are inserted from javascript -->
-            </div>
-            <div class="icon"><i class="fas fa-search"></i></div>
-        </div>
-    </div>
-
-
     <!-- Modal -->
     <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -234,28 +166,28 @@
 
                         <div class="form-group">
                             <label class="label-text">Image</label>
-                            <input name="image" type="file" accept="image/*" class="form-control"/>
+                            <input name="image" type="file" accept="image/*" class="form-control" required/>
                         </div>
 
 
                         <div class="form-group">
                             <label class="label-text">Code</label>
-                            <input name="code" type="text" class="form-control"/>
+                            <input name="code" type="text" class="form-control" required/>
                         </div>
 
                         <div class="form-group">
                             <label class="label-text">Name</label>
-                            <input name="name" type="text" class="form-control"/>
+                            <input name="name" type="text" class="form-control" required/>
                         </div>
 
                         <div class="form-group">
                             <label class="label-text">Description</label>
-                            <textarea name="description" class="form-control"></textarea>
+                            <textarea name="description" class="form-control" required></textarea>
                         </div>
 
                         <div class="form-group">
                             <label class="label-text">Status</label>
-                            <select name="status" class="form-select">
+                            <select name="status" class="form-select" required>
                                 <option disabled selected>Select</option>
                                 @foreach(\App\Enums\ItemStatus::cases() as $status)
                                     <option value="{{$status->value}}">{{$status->value}}</option>
@@ -265,7 +197,7 @@
 
                         <div class="form-group">
                             <label class="label-text">Stock</label>
-                            <input name="stock" type="number" class="form-control"/>
+                            <input name="stock" type="number" min="1" class="form-control" required/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -284,84 +216,5 @@
             reloadOnEmpty('#searchForm', '#searchInput');
             submitFormOnChange('#searchForm', '#orderBy', '#sortBy');
         })
-
-        let database = [
-            "Channel",
-            "CodingLab",
-            "CodingNepal",
-            "YouTube",
-            "YouTuber",
-            "YouTube Channel",
-            "Blogger",
-            "Bollywood",
-            "Vlogger",
-            "Vechiles",
-            "Facebook",
-            "Freelancer",
-            "Facebook Page",
-            "Designer",
-            "Developer",
-            "Web Designer",
-            "Web Developer",
-            "Login Form in HTML & CSS",
-            "How to learn HTML & CSS",
-            "How to learn JavaScript",
-            "How to became Freelancer",
-            "How to became Web Designer",
-            "How to start Gaming Channel",
-            "How to start YouTube Channel",
-            "What does HTML stands for?",
-            "What does CSS stands for?",
-        ];
-
-        // getting all required elements
-        const searchInput = document.querySelector(".searchInput");
-        const input = searchInput.querySelector("input");
-        const resultBox = searchInput.querySelector(".resultBox");
-        const icon = searchInput.querySelector(".icon");
-        let linkTag = searchInput.querySelector("a");
-        let webLink;
-
-        input.addEventListener('keyup', (e) => {
-
-            const searchQuery = e.target.value;
-            let suggestions = [];
-
-            if (!searchQuery || searchQuery === ' ') {
-                searchInput.classList.remove("active");
-                return;
-            }
-
-            suggestions = database.filter((data) => {
-                return data.toLocaleLowerCase().startsWith(searchQuery.toLocaleLowerCase());
-            });
-
-            if (!suggestions.length) {
-                resultBox.innerHTML = null;
-                return;
-            }
-
-            suggestions = suggestions.map(suggestion => `<li>${suggestion}</li>`);
-
-
-            searchInput.classList.add("active"); //show autocomplete box
-
-            showSuggestions(suggestions);
-
-            let selections = resultBox.querySelectorAll("li");
-
-            selections.forEach(selection => {
-                selection.addEventListener('click', () => {
-                    searchInput.value = selection.innerText;
-                    searchInput.classList.remove("active")
-                    resultBox.innerHTML = null;
-                })
-            })
-
-            function showSuggestions(suggestions) {
-                resultBox.innerHTML = suggestions ?? null;
-            }
-        })
-
     </script>
 @endsection

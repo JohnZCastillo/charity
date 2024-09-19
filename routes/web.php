@@ -39,15 +39,16 @@ Route::get('/inventory/announcement/{announcementID}', [AnnouncementController::
 Route::patch('/inventory/announcement/{announcementID}', [AnnouncementController::class, 'updateAnnouncement']);
 Route::delete('/inventory/announcement/{announcementID}', [AnnouncementController::class, 'deleteAnnouncement']);
 
-Route::get('/test', function () {
-    return view('layouts.inventory');
-});
+
+Route::get('/inventory/report', [\App\Http\Controllers\Inventory\ReportController::class, 'report']);
 
 Route::post('/inventory/event', [\App\Http\Controllers\Inventory\EventController::class, 'newEvent']);
 Route::get('/inventory/events', [\App\Http\Controllers\Inventory\EventController::class, 'index']);
 Route::get('/inventory/events/{eventID}', [\App\Http\Controllers\Inventory\EventController::class, 'viewEvent']);
 Route::delete('/inventory/events/{eventID}', [\App\Http\Controllers\Inventory\EventController::class, 'deleteEvent']);
 Route::patch('/inventory/events/{eventID}', [\App\Http\Controllers\Inventory\EventController::class, 'deleteEvent']);
+
+Route::post('/inventory/donate', [\App\Http\Controllers\DonationController::class, 'donate']);
 
 Route::get('/inventory/announcements', [AnnouncementController::class, 'index'])->name('announcements');
 Route::get('/create-announcement', [AnnouncementController::class, 'createAnnouncement']);
