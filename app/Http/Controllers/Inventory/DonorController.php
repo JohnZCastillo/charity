@@ -27,8 +27,8 @@ class DonorController extends Controller
             });
         });
 
-        $query->when($request->input('status'), function ($query) use ($request) {
-            $query->where('status', $request->input('status'));
+        $query->when($request->input('status') && $request->input('status') != 'ALL', function ($query) use ($request) {
+            $query->where('status', UserStatus::valueOf($request->input('status')));
         });
 
         $query->when($request->input('order'), function ($query) use ($request) {

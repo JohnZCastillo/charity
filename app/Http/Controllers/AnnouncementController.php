@@ -11,9 +11,28 @@ use Illuminate\Support\Facades\DB;
 class AnnouncementController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $announcements = Announcement::paginate(10);
+        $query = Announcement::query();
+
+        $query->when($request->input('search'), function ($qb) use ($request) {
+
+            $qb->where(function ($qb) use ($request) {
+                $qb->whereLike('title', '%' . $request->input('search') . '%');
+
+                $qb->orWhere(function ($qb) use ($request) {
+                    $qb->whereHas('user', function ($qb) use ($request) {
+                        $qb->whereLike('name', '%' . $request->input('search') . '%');
+                    });
+                });
+            });
+        });
+
+        $query->when($request->input('order'), function ($qb) use ($request) {
+            $qb->orderBy($request->input('order'), $request->input('sort'));
+        });
+
+        $announcements = $query->paginate(10);
 
         return view('announcements', [
             'announcements' => $announcements

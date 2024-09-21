@@ -25,6 +25,10 @@ class ItemController extends Controller
 
         $query->where('deleted', '=', 0);
 
+        $query->when($request->input('status') && $request->input('status') != 'ALL', function ($qb) use ($request) {
+            $qb->where('status',  ItemStatus::valueOf($request->input('status')));
+        });
+
         $query->when($request->input('search'), function ($qb) use ($request) {
             $qb->where(function ($qb) use ($request) {
                 $qb->whereLike('items.code', '%' . $request->input('search') . '%');

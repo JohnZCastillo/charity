@@ -72,6 +72,15 @@
                     </select>
                 </div>
 
+                <div class="col-6 col-md-3 d-flex align-items-center gap-2">
+                    <label class="text-nowrap">Status</label>
+                    <select class="form-select text-uppercase" id="searchStatus" name="status">
+                        <option value="ALL">All</option>
+                        @foreach(\App\Enums\ItemStatus::cases() as $status)
+                            <option class="text-uppercase" @selected($app->request->status ==$status->value) value="{{$status->value}}">{{$status->value}}</option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <div class="col-6 col-md-3 mt-2 mt-md-0 d-flex align-items-center gap-2">
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning">
@@ -213,8 +222,8 @@
 @section('scripts')
     <script>
         window.addEventListener('load', () => {
-            reloadOnEmpty('#searchForm', '#searchInput');
-            submitFormOnChange('#searchForm', '#orderBy', '#sortBy');
+            reloadOnEmpty('#searchForm', '#searchInput',);
+            submitFormOnChange('#searchForm', '#orderBy', '#sortBy','#searchStatus');
         })
     </script>
 @endsection

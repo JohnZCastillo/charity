@@ -27,7 +27,10 @@
                         <label class="text-nowrap">Order By</label>
                         <select class="form-select" id="orderBy" name="order">
                             <option @selected($app->request->order == 'title') value="title">Title</option>
-                            <option @selected($app->request->order == 'created') value="created">Created At</option>
+                            <option @selected($app->request->order == 'location') value="location">Location</option>
+                            <option @selected($app->request->order == 'start') value="start">Start</option>
+                            <option @selected($app->request->order == 'end') value="end">End</option>
+                            <option @selected($app->request->order == 'created_at') value="created_at">Created At</option>
                         </select>
                     </div>
 
@@ -141,9 +144,9 @@
 
 @section('scripts')
     <script>
-        // window.addEventListener('load', () => {
-        //     reloadOnEmpty('#searchForm', '#searchInput');
-        //     submitFormOnChange('#searchForm', '#orderBy', '#sortBy');
-        // })
+        window.addEventListener('load', () => {
+            reloadOnEmpty('#searchForm', '#searchInput');
+            submitFormOnChange('#searchForm', '#orderBy', '#sortBy');
+        })
     </script>
 @endsection

@@ -34,7 +34,7 @@
                             <label class="text-nowrap">Order By</label>
                             <select class="form-select" id="orderBy" name="order">
                                 <option @selected($app->request->order == 'title') value="title">Title</option>
-                                <option @selected($app->request->order == 'created') value="created">Created At</option>
+                                <option @selected($app->request->order == 'created_at') value="created_at">Date</option>
                             </select>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                     <thead>
                     <tr>
                         <th>Title</th>
-                        <th>Created By</th>
+                        <th>Author</th>
                         <th>Date</th>
                         <th>Action</th>
                     </tr>
@@ -106,9 +106,9 @@
 
 @section('scripts')
     <script>
-        // window.addEventListener('load', () => {
-        //     reloadOnEmpty('#searchForm', '#searchInput');
-        //     submitFormOnChange('#searchForm', '#orderBy', '#sortBy');
-        // })
+        window.addEventListener('load', () => {
+            reloadOnEmpty('#searchForm', '#searchInput');
+            submitFormOnChange('#searchForm', '#orderBy', '#sortBy');
+        })
     </script>
 @endsection

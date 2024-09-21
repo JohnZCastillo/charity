@@ -35,7 +35,7 @@
 
                 </div>
 
-                <div class="col-3 d-flex align-items-center gap-2">
+                <div class="col-6 col-md-3 d-flex align-items-center gap-2">
                     <label class="text-nowrap">Order By</label>
                     <select class="form-select" id="orderBy" name="order">
                         <option @selected($app->request->order == 'code') value="code">Code</option>
@@ -43,13 +43,24 @@
                     </select>
                 </div>
 
-                <div class="col-3 d-flex align-items-center gap-2">
+                <div class="col-6 col-md-3 d-flex align-items-center gap-2">
                     <label class="text-nowrap">Sort by</label>
                     <select class="form-select" id="sortBy" name="sort">
                         <option @selected($app->request->sort == 'asc') value="asc">Ascending</option>
                         <option @selected($app->request->sort == 'desc') value="desc">Descending</option>
                     </select>
                 </div>
+
+                <div class="col-6 col-md-3 d-flex align-items-center gap-2">
+                    <label class="text-nowrap">Status</label>
+                    <select class="form-select text-uppercase" id="searchStatus" name="status">
+                        <option value="ALL">All</option>
+                        @foreach(\App\Enums\UserStatus::cases() as $status)
+                            <option class="text-uppercase" @selected($app->request->status ==$status->value) value="{{$status->value}}">{{$status->value}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
             </div>
         </form>
 
@@ -168,7 +179,7 @@
     <script>
         window.addEventListener('load', () => {
             reloadOnEmpty('#searchForm', '#searchInput');
-            submitFormOnChange('#searchForm', '#orderBy', '#sortBy');
+            submitFormOnChange('#searchForm', '#orderBy', '#sortBy','#searchStatus');
         })
     </script>
 @endsection

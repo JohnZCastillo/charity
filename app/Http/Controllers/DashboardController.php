@@ -26,19 +26,16 @@ class DashboardController extends Controller
         $donors = Account::select(DB::raw('COUNT(id) as total_count'))
             ->where('type', UserType::DONOR->value)
             ->where('status', UserStatus::ENABLED->value)
-            ->groupBy('id')
             ->value('total_count');
 
         $recipients = Account::select(DB::raw('COUNT(id) as total_count'))
             ->where('type', UserType::RECIPIENT->value)
             ->where('status', UserStatus::ENABLED->value)
-            ->groupBy('id')
             ->value('total_count');
 
         $items = Item::select(DB::raw('COUNT(id) as total_count'))
             ->where('deleted', false)
             ->where('status', ItemStatus::ENABLED->value)
-            ->groupBy('id')
             ->value('total_count');
 
         $lowStockItems = Item::select(['id', 'stock', 'name', 'code'])

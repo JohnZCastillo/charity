@@ -138,7 +138,7 @@
                 </li>
                 <li class="link {{ request()->is('inventory/announcements') ? 'active' : '' }}">
 
-                <a class="list-group-item list-group-item-action bg-transparent border-0 d-flex align-items-center gap-2"
+                    <a class="list-group-item list-group-item-action bg-transparent border-0 d-flex align-items-center gap-2"
                        href="/inventory/announcements">
                         <i class="bx bx-sm bx-notepad"></i>
                         Announcements
@@ -146,7 +146,7 @@
                 </li>
                 <li class="link {{ request()->is('inventory/events') ? 'active' : '' }}">
 
-                <a class="list-group-item list-group-item-action bg-transparent border-0 d-flex align-items-center gap-2"
+                    <a class="list-group-item list-group-item-action bg-transparent border-0 d-flex align-items-center gap-2"
                        href="/inventory/events">
                         <i class="bx bx-sm bx-calendar-event"></i>
                         Events
@@ -161,10 +161,12 @@
                 </li>
             </ul>
         </aside>
+
         <section class="col-sm-12 col-md-10 px-0">
             @yield('body')
         </section>
     </main>
+
 </div>
 
 <script>
