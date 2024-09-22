@@ -17,9 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('inventory')->middleware(['auth'])->group(function () {
 
-    Route::get('/login', [AuthController::class, 'index'])->withoutMiddleware(['auth'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])
+        ->withoutMiddleware(['auth']);
 
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/login', [AuthController::class, 'index'])
+        ->withoutMiddleware(['auth'])
+        ->name('login');
+
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -50,14 +54,14 @@ Route::prefix('inventory')->middleware(['auth'])->group(function () {
 
 });
 
-Route::prefix('inventory')->group(function () {
-    Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
+
+Route::prefix('charity')->group(function () {
     Route::get('/announcements', [CharityAnnouncementController::class, 'index']);
     Route::get('/contact-us', [ContactController::class, 'index']);
     Route::get('/about-us', [AboutController::class, 'index']);
     Route::get('/events', [CharityEventController::class, 'index']);
 });
-
 
 
 Route::get('/item/edit/{itemID}', [ItemController::class, 'getItem']);

@@ -39,7 +39,7 @@
 
 <div class="full-screen bg-light">
     <main class="h-100 d-flex align-items-center justify-content-center px-2">
-        <form  method="POST" action="/inventory/login" class="bg-white form mx-auto w-100 rounded shadow py-4 px-2" style="max-width: 600px">
+        <form method="POST" action="/inventory/login" class="bg-white form mx-auto w-100 rounded shadow py-4 px-2" style="max-width: 600px">
             @csrf
             <h1 class="fw-bold text-uppercase text-secondary">Inventory System Login</h1>
             <div class="form-group">
@@ -50,7 +50,7 @@
                 <label>Password</label>
                 <input type="password" name="password" class="form-control" required>
             </div>
-            <button class="mt-2 btn btn-success">Login</button>
+            <button type="submit" class="mt-2 btn btn-success">Login</button>
 
             <small class="d-block text-danger text-center">
                 @if($errors->any())

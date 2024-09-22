@@ -191,7 +191,7 @@
                 }
             },
             title: {
-                text: 'Monthly Sales',
+                text: 'Donation History',
                 align: 'left',
                 style: {
                     fontSize: '18px'
@@ -226,7 +226,7 @@
             },
             colors: colorPalette,
             title: {
-                text: 'Department Sales',
+                text: 'Items Category',
                 style: {
                     fontSize: '18px'
                 }
