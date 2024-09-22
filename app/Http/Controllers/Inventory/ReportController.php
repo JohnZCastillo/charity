@@ -42,9 +42,9 @@ class ReportController extends Controller
 
              $snappdf
                 ->setHtml($html)
-                ->save('/');
+                ->save('/test.pdf');
 
-            return  response()->download('/');
+            return  response()->download('/test.pdf');
 
         }catch (\Exception $e){
             return  $e->getMessage();
