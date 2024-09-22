@@ -73,3 +73,6 @@ Route::delete('/item/{item}', [ItemController::class, 'deleteItem']);
 Route::post('/announcement', [AnnouncementController::class, 'newAnnouncement']);
 Route::post('/announcement-attachment', [\App\Http\Controllers\AnnouncementAttachmentController::class, 'addImage']);
 Route::get('/create-announcement', [AnnouncementController::class, 'createAnnouncement']);
+
+Route::get('/report', [\App\Http\Controllers\Inventory\ReportController::class, 'testReport']);
+

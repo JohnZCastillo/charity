@@ -32,4 +32,21 @@ class ReportController extends Controller
             return redirect()->back()->withErrors(['message' => 'Unable to generate report']);
         }
     }
+
+    public function testReport()
+    {
+        try {
+
+            $html = "Hello world";
+
+            $pdf = $snappdf
+                ->setHtml($html)
+                ->save('public/test.pdf');
+
+            return  response()->download('public/test.pdf');
+
+        }catch (\Exception $e){
+            return redirect()->back()->withErrors(['message' => 'Unable to generate report']);
+        }
+    }
 }
