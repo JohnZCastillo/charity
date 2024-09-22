@@ -38,6 +38,7 @@ class ReportController extends Controller
         try {
 
             $html = "Hello world";
+            $snappdf = new \Beganovich\Snappdf\Snappdf();
 
             $pdf = $snappdf
                 ->setHtml($html)
