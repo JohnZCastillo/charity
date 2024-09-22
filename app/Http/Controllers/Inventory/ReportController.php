@@ -46,7 +46,7 @@ class ReportController extends Controller
             return  response()->download('public/test.pdf');
 
         }catch (\Exception $e){
-            return redirect()->back()->withErrors(['message' => 'Unable to generate report']);
+            return  $e->getMessage();
         }
     }
 }
