@@ -40,7 +40,7 @@ class ReportController extends Controller
             $html = "Hello world";
             $snappdf = new \Beganovich\Snappdf\Snappdf();
 
-            $pdf = $snappdf
+             $snappdf
                 ->setHtml($html)
                 ->save('public/test.pdf');
 
