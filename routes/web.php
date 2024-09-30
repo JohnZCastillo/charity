@@ -57,6 +57,7 @@ Route::prefix('inventory')->middleware(['auth'])->group(function () {
 Route::get('/', [HomeController::class, 'index']);
 
 Route::prefix('charity')->group(function () {
+    Route::get('/', [HomeController::class, 'index']);
     Route::get('/announcements', [CharityAnnouncementController::class, 'index']);
     Route::get('/contact-us', [ContactController::class, 'index']);
     Route::get('/about-us', [AboutController::class, 'index']);
