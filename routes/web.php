@@ -26,6 +26,7 @@ Route::prefix('inventory')->middleware(['auth'])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    Route::get('/', [DashboardController::class, 'index']);
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/items', [ItemController::class, 'index']);
     Route::get('/donors', [DonorController::class, 'index']);
