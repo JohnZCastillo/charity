@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="/css/nice-select.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/base.css">
+
+    @yield('files')
 </head>
 <body>
 <!-- ? Preloader Start -->
@@ -98,7 +100,7 @@
                                 </div>
                                 <!-- Header-btn -->
                                 <div class="header-right-btn d-none d-lg-block ml-20">
-                                    <a href="../../../../../../../xampp/htdocs/charityworks/appointment.html"
+                                    <a href="/charity/appointment"
                                        class="btn header-btn">Donate</a>
                                 </div>
                             </div>
@@ -120,7 +122,7 @@
 </main>
 
 <footer>
-    <div class="footer-wrapper section-bg2" data-background="assets/img/gallery/footer_bg.png">
+    <div class="footer-wrapper section-bg2" style="background-color: #040c1c" data-background="/img/assets/img/gallery/footer_bg.png">
         <!-- Footer Top-->
         <div class="footer-area footer-padding">
             <div class="container">
@@ -170,25 +172,6 @@
                                 <h4>Newsletter</h4>
                                 <div class="footer-pera footer-pera2">
                                     <p>Heaven fruitful doesn't over lesser in days. Appear creeping.</p>
-                                </div>
-                                <!-- Form -->
-                                <div class="footer-form">
-                                    <div id="mc_embed_signup">
-                                        <form target="_blank"
-                                              action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                              method="get" class="subscribe_form relative mail_part">
-                                            <input type="email" name="email" id="newsletter-form-email"
-                                                   placeholder="Email Address"
-                                                   class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
-                                                   onblur="this.placeholder = ' Email Address '">
-                                            <div class="form-icon">
-                                                <button type="submit" name="submit" id="newsletter-submit"
-                                                        class="email_icon newsletter-submit button-contactForm"><img
-                                                        src="/img/gallery/form.png" alt=""></button>
-                                            </div>
-                                            <div class="mt-10 info"></div>
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -63,6 +63,7 @@ Route::prefix('charity')->group(function () {
     Route::get('/contact-us', [ContactController::class, 'index']);
     Route::get('/about-us', [AboutController::class, 'index']);
     Route::get('/events', [CharityEventController::class, 'index']);
+    Route::get('/appointment', [\App\Http\Controllers\Charity\AppointmentController::class, 'index']);
 });
 
 

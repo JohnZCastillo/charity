@@ -13,13 +13,14 @@
                     <div class="single-job-items mb-30">
                         <div class="job-items">
                             <div class="company-img">
-                                <a href="#"><img src="{{ \Illuminate\Support\Facades\Storage::url($event->image)}}" alt=""></a>
+                                <img style="height: 300px" class="img-fluid" src="{{ \Illuminate\Support\Facades\Storage::url($event->image)}}" alt="">
                             </div>
                             <div class="job-tittle">
                                 <a href="#"><h4>{{$event->name}}</h4></a>
                                 <ul>
-                                    <li><i class="far fa-clock"></i>Time</li>
-                                    <li><i class="fas fa-sort-amount-down"></i>Date</li>
+                                    <li><i class="far fa-clock"></i>Time {{$event->start->format('h:i a')}}</li>
+                                    <li><i class="fas fa-sort-amount-down"></i>Date {{$event->start->format('Y-m-d')}}
+                                    </li>
                                     <li><i class="fas fa-map-marker-alt"></i>{{$event->location}}</li>
                                 </ul>
                             </div>
